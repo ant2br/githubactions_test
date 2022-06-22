@@ -1,0 +1,22 @@
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Build"
+      - uses: actions/checkout@v2
+
+      - uses: azure/docker-login@v1
+        with:
+          login-server: ghcr.io
+          username: $GITHUB_ACTOR
+          password: $GITHUB_TOKEN
+
+      - run: |
+          docker build -t ghcr.io/ant2br/docker/ant2br:latest -f Dockerfile .
+          docker tag ghcr.io/ant2br/docker/ant2br:latest ghcr.io/ant2br/docker/ant2br:$GITHUB_SHA
+      - run: |
+          docker push ghcr.io/ant2br/docker/ant2br:latest
+          docker push ghcr.io/ant2br/docker/ant2br:$GITHUB_SHA
