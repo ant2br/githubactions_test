@@ -11,8 +11,8 @@ jobs:
       - uses: azure/docker-login@v1
         with:
           login-server: ghcr.io
-          username: $GITHUB_ACTOR
-          password: $GITHUB_TOKEN
+          username: $ACTOR
+          password: $TOKEN
 
       - run: |
           docker build -t ghcr.io/ant2br/docker/ant2br:latest -f Dockerfile .
