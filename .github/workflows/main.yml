@@ -1,27 +1,27 @@
 name: CI
-on: 
+
+on:
   workflow_dispatch:
-    branches:
-      - main
+  
+
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
 
-      - name: "Login"
-        uses: azure/docker-login@v1
-        with:
-          login-server: ghcr.io
-          username: $ACTOR
-          password: $TOKEN
-      - run: |
-          docker build -t ghcr.io/ant2br/docker/ant2br:latest -f Dockerfile .
-          docker tag ghcr.io/ant2br/docker/ant2br:latest ghcr.io/ant2br/docker/ant2br:$GITHUB_SHA
-
-      - name: "Push"
-      - run: |
-          docker push ghcr.io/ant2br/docker/ant2br:latest
-          docker push ghcr.io/ant2br/docker/ant2br:$GITHUB_SHA
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ghcr.io
+        username: ${{ secrets.ACTOR }}
+        password: ${{ secrets.TOKEN }}
+    
+    - run: |
+        docker build -t ghcr.io/ant2br/expresssimple:latest -f Dockerfile .
+        docker tag ghcr.io/ant2br/expresssimple:latest ghcr.io/ant2br/expresssimple:${{ github.sha }}
+    
+    - run: |
+        docker push ghcr.io/ant2br/expresssimple:latest
+        docker push ghcr.io/ant2br/expresssimple:${{ github.sha }}
