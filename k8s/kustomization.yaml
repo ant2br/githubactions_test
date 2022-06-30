@@ -12,4 +12,4 @@ images:
   newName: ghcr.io/ant2br/expresssimple
   newTag: latest
 - name: ghcr.io/ant2br/expresssimple
-  newTag: 24dd52bdbf5f8c480fbb6334c289647afb1c8e69
+  newTag: ceec88dd41bbf96aa7c4bf7e755c483abea2f279
